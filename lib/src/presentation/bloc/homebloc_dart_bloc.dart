@@ -2,13 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hemend/debug/developer_tools.dart';
 
-import '../../../data/models/person.dart';
-import '../../../domain/repositories/base_person_impl.dart';
-import '../../../domain/usecases/add_person_usecase.dart';
-import '../../../domain/usecases/get_all_person_usecase.dart';
-import '../../../domain/usecases/remove_person_usecase.dart';
-import '../../../domain/usecases/update_person_usecase.dart';
-import '../../../injector.dart';
+import '../../data/models/person.dart';
+import '../../domain/repositories/base_person_impl.dart';
+import '../../domain/usecases/add_person_usecase.dart';
+import '../../domain/usecases/get_all_person_usecase.dart';
+import '../../domain/usecases/remove_person_usecase.dart';
+import '../../domain/usecases/update_person_usecase.dart';
+import '../../injector.dart';
 
 part 'homebloc_dart_event.dart';
 part 'homebloc_dart_state.dart';
