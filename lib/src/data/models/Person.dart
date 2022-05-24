@@ -2,13 +2,13 @@ import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
   String name;
-  String Last;
+  String last;
   int age;
 
-  Person({this.name = "", this.Last = "", this.age = 0});
+  Person({this.name = "", this.last = "", this.age = 0});
 
   String get getName {
-    return this.name;
+    return name;
   }
 
   set setName(String name) {
@@ -16,15 +16,15 @@ class Person extends Equatable {
   }
 
   String get getLast {
-    return this.Last;
+    return last;
   }
 
   set setLast(String last) {
-    this.Last = last;
+    last = last;
   }
 
   int get getAge {
-    return this.age;
+    return age;
   }
 
   set setAge(int age) {
@@ -32,5 +32,5 @@ class Person extends Equatable {
   }
 
   @override
-  List<Object?> get props => [name, Last, age];
+  List<Object?> get props => [name, last, age];
 }
