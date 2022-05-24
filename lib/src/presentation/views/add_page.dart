@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/models/person.dart';
 import '../../domain/entities/person_entities.dart';
-import '../bloc/homebloc_dart_bloc.dart';
 
 class AddEditPage extends StatelessWidget {
   const AddEditPage({
     Key? key,
     this.personEntity,
+    required this.onAddEntity,
   }) : super(key: key);
   final PersonEntity? personEntity;
+  final void Function(PersonEntity) onAddEntity;
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeBloc(),
-      child: AddEditView(
-        entity: personEntity ?? PersonEntity(age: 0, last: '', name: ''),
-      ),
+    return AddEditView(
+      entity: personEntity ?? PersonEntity(age: 0, last: '', name: ''),
+      onAddEntity: onAddEntity,
     );
   }
 }
@@ -25,7 +22,10 @@ class AddEditPage extends StatelessWidget {
 class AddEditView extends StatefulWidget {
   final PersonEntity entity;
 
-  const AddEditView({super.key, required this.entity});
+  final void Function(PersonEntity) onAddEntity;
+
+  const AddEditView(
+      {super.key, required this.entity, required this.onAddEntity});
 
   @override
   State<StatefulWidget> createState() => _AddEditViewState();
@@ -33,7 +33,6 @@ class AddEditView extends StatefulWidget {
 
 class _AddEditViewState extends State<AddEditView> {
   late Map<String, InputFieldPrams> controllers;
-
   @override
   void initState() {
     super.initState();
@@ -73,80 +72,68 @@ class _AddEditViewState extends State<AddEditView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeblocState>(
-      builder: (context, state) {
-        return Center(
-          child: Container(
-            child: Column(
-              children: [
-                //name text field
-                ...controllers.entries.map(
-                  (e) {
-                    return TextField(
-                      controller: e.value.controller,
-                      keyboardType: e.value.type,
-                      decoration: InputDecoration(
-                        hintText: 'Input your ${e.key} here',
-                        labelText: e.key,
-                        fillColor: Colors.white,
-                        border: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.all(Radius.circular(7.0)),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-
-                //a row of two button
-                Row(
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          //navigate back to home
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text(
-                          'Cancel',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 12.0),
-                        ),
-                      ),
+    return Center(
+      child: Container(
+        child: Column(
+          children: [
+            //name text field
+            ...controllers.entries.map(
+              (e) {
+                return TextField(
+                  controller: e.value.controller,
+                  keyboardType: e.value.type,
+                  decoration: InputDecoration(
+                    hintText: 'Input your ${e.key} here',
+                    labelText: e.key,
+                    fillColor: Colors.white,
+                    border: const OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
                     ),
-                    //save btn
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          // save task
-                          context.read<HomeBloc>().add(
-                                InsertPerson(
-                                  person: Person(
-                                    name: widget.entity.name,
-                                    last: widget.entity.last,
-                                    age: widget.entity.age,
-                                  ),
-                                ),
-                              );
-
-                          //navigate back
-                          Navigator.of(context).pop();
-                        },
-                        child: const Text(
-                          'Save',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontSize: 12.0),
-                        ),
-                      ),
-                    )
-                    //end of save
-                  ],
-                )
-              ],
+                  ),
+                );
+              },
             ),
-          ),
-        );
-      },
+
+            //a row of two button
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      //navigate back to home
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      'Cancel',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12.0),
+                    ),
+                  ),
+                ),
+                //save btn
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // save task
+                      widget.onAddEntity(widget.entity);
+
+                      //navigate back
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text(
+                      'Save',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 12.0),
+                    ),
+                  ),
+                )
+                //end of save
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
