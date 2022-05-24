@@ -1,0 +1,159 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../data/models/person.dart';
+import '../../domain/entities/person_entities.dart';
+import '../bloc/homebloc_dart_bloc.dart';
+
+class AddEditPage extends StatelessWidget {
+  const AddEditPage({
+    Key? key,
+    this.personEntity,
+  }) : super(key: key);
+  final PersonEntity? personEntity;
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => HomeBloc(),
+      child: AddEditView(
+        entity: personEntity ?? PersonEntity(age: 0, last: '', name: ''),
+      ),
+    );
+  }
+}
+
+class AddEditView extends StatefulWidget {
+  final PersonEntity entity;
+
+  const AddEditView({super.key, required this.entity});
+
+  @override
+  State<StatefulWidget> createState() => _AddEditViewState();
+}
+
+class _AddEditViewState extends State<AddEditView> {
+  late Map<String, InputFieldPrams> controllers;
+
+  @override
+  void initState() {
+    super.initState();
+    controllers = {
+      'name': InputFieldPrams(
+        TextEditingController(text: widget.entity.name)
+          ..addListener(() {
+            widget.entity.name = controllers['name']!.controller.text;
+          }),
+        TextInputType.name,
+      ),
+      'last name': InputFieldPrams(
+        TextEditingController(text: widget.entity.last)
+          ..addListener(() {
+            widget.entity.last = controllers['last name']!.controller.text;
+          }),
+        TextInputType.name,
+      ),
+      'age': InputFieldPrams(
+        TextEditingController(text: widget.entity.age.toString())
+          ..addListener(() {
+            widget.entity.age =
+                int.tryParse(controllers['age']!.controller.text) ?? 0;
+          }),
+        TextInputType.number,
+      ),
+    };
+  }
+
+  @override
+  void dispose() {
+    for (final conroller in controllers.values) {
+      conroller.controller.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<HomeBloc, HomeblocState>(
+      builder: (context, state) {
+        return Center(
+          child: Container(
+            child: Column(
+              children: [
+                //name text field
+                ...controllers.entries.map(
+                  (e) {
+                    return TextField(
+                      controller: e.value.controller,
+                      keyboardType: e.value.type,
+                      decoration: InputDecoration(
+                        hintText: 'Input your ${e.key} here',
+                        labelText: e.key,
+                        fillColor: Colors.white,
+                        border: const OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+
+                //a row of two button
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          //navigate back to home
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          'Cancel',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                      ),
+                    ),
+                    //save btn
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // save task
+                          context.read<HomeBloc>().add(
+                                InsertPerson(
+                                  person: Person(
+                                    name: widget.entity.name,
+                                    last: widget.entity.last,
+                                    age: widget.entity.age,
+                                  ),
+                                ),
+                              );
+
+                          //navigate back
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          'Save',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12.0),
+                        ),
+                      ),
+                    )
+                    //end of save
+                  ],
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class InputFieldPrams {
+  final TextEditingController controller;
+  final TextInputType type;
+
+  InputFieldPrams(this.controller, this.type);
+}
