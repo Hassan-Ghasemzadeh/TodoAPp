@@ -5,7 +5,7 @@ class Person extends Equatable {
   String last;
   int age;
 
-  Person({this.name = "", this.last = "", this.age = 0});
+  Person({this.name = '', this.last = '', this.age = 0});
 
   String get getName {
     return name;
@@ -20,7 +20,7 @@ class Person extends Equatable {
   }
 
   set setLast(String last) {
-    last = last;
+    this.last = last;
   }
 
   int get getAge {

@@ -1,1 +1,1 @@
-const String kMaterialAppTitle = "Todo app";
+const String kMaterialAppTitle = 'Todo app';
