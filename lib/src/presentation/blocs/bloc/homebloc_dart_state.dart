@@ -1,10 +1,10 @@
 part of 'homebloc_dart_bloc.dart';
 
-abstract class HomeblocDartState extends Equatable {
-  const HomeblocDartState();
+abstract class HomeblocState extends Equatable {
+  const HomeblocState();
 
   @override
   List<Object> get props => [];
 }
 
-class HomeblocInitial extends HomeblocDartState {}
+class HomeblocInitial extends HomeblocState {}
