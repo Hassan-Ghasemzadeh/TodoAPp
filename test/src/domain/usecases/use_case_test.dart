@@ -36,7 +36,7 @@ void main() {
     test('add person test', () async {
       final insert = AddPersonUseCase(repo);
 
-      final person = Person();
+      final person = Person.unique();
 
       final add = await insert.invoke(person);
 
@@ -50,7 +50,7 @@ void main() {
     test('remove person test', () async {
       final delete = RemovePersonUseCases(repo);
 
-      final person = Person();
+      final person = Person.unique();
 
       final remove = await delete.invoke(person);
 
@@ -62,7 +62,7 @@ void main() {
     test('upadate person test', () async {
       final updateUsecase = UpdatePersonUseCases(repo);
 
-      final person = Person();
+      final person = Person.unique();
 
       final update = await updateUsecase.invoke(person);
 
