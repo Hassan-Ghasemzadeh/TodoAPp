@@ -5,20 +5,11 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Chrome",
+            "type": "pwa-chrome",
             "request": "launch",
-            "type": "chrome",
+            "name": "Launch Chrome against localhost",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
-        },
-        {
-            "type": "android",
-            "request": "launch",
-            "name": "Android Launch",
-            "appSrcRoot": "${workspaceRoot}/app/src/main",
-            "apkFile": "${workspaceRoot}/app/build/outputs/apk/debug/app-debug.apk",
-            "adbPort": 5037
         }
-        
     ]
 }

@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/task_entities.dart';
 
 class AddEditPage extends StatelessWidget {
+  //constructure
   const AddEditPage({
     Key? key,
     this.personEntity,
     required this.onAddEntity,
   }) : super(key: key);
+
+  //fields
   final TaskEntity? personEntity;
   final void Function(TaskEntity) onAddEntity;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -26,8 +30,11 @@ class AddEditView extends StatefulWidget {
 
   final void Function(TaskEntity) onAddEntity;
 
-  const AddEditView(
-      {super.key, required this.entity, required this.onAddEntity});
+  const AddEditView({
+    super.key,
+    required this.entity,
+    required this.onAddEntity,
+  });
 
   @override
   State<StatefulWidget> createState() => _AddEditViewState();
@@ -75,7 +82,7 @@ class _AddEditViewState extends State<AddEditView> {
             ...controllers.entries.map(
               (e) {
                 return SizedBox(
-                  width: 200.0,
+                  width: 300.0,
                   child: TextField(
                     controller: e.value.controller,
                     keyboardType: e.value.type,

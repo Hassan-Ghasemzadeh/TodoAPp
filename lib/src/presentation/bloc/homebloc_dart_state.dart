@@ -12,7 +12,7 @@ class HomeblocInitial extends HomeblocState {
 class AllPersonsState extends HomeblocState {
   final List<Task> tasks;
 
-  const AllPersonsState(this.tasks);
+  const AllPersonsState({this.tasks = const <Task>[]});
 
   @override
   List<Object?> get props => [tasks];

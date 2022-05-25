@@ -27,7 +27,7 @@ class HomeBloc extends Bloc<HomeblocEvent, HomeblocState> {
   GetAllPersonUsecase get getAllPerson => GetAllPersonUsecase(repo);
 
   // update person
-  HomeBloc() : super(HomeblocInitial()) {
+  HomeBloc() : super(const AllPersonsState()) {
     on<UpdatePerson>((event, emit) {
       update.invoke(event.person);
     });
@@ -51,7 +51,7 @@ class HomeBloc extends Bloc<HomeblocEvent, HomeblocState> {
       final result = await getAllPerson.invoke();
       result.singleActOnFinished(
         onDone: (data) {
-          emit(AllPersonsState(data!));
+          emit(AllPersonsState(tasks: data!));
         },
         onError: (error) {
           result.log();

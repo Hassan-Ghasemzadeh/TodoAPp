@@ -22,22 +22,22 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(kMaterialAppTitle),
-      ),
-      body: Container(
-        margin: const EdgeInsets.all(10.0),
-        child: BlocBuilder<HomeBloc, HomeblocState>(
-          buildWhen: (previous, current) {
-            if (previous != current) {
-              return true;
-            }
-            return false;
-          },
-          builder: (context, state) {
-            if (state is AllPersonsState) {
-              return ListView.builder(
+    return BlocBuilder<HomeBloc, HomeblocState>(
+      buildWhen: (previous, current) {
+        if (previous != current) {
+          return true;
+        }
+        return false;
+      },
+      builder: (context, state) {
+        if (state is AllPersonsState) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text(kMaterialAppTitle),
+            ),
+            body: Container(
+              margin: const EdgeInsets.all(10.0),
+              child: ListView.builder(
                 itemCount: state.tasks.length,
                 itemBuilder: (context, index) {
                   final task = state.tasks[index];
@@ -47,8 +47,10 @@ class _HomeViewState extends State<HomeView> {
                         MaterialPageRoute(
                           builder: (context) => AddEditPage(
                             onAddEntity: (entity) => {
-                              entity.title = task.title,
-                              entity.description = task.description
+                              setState(() {
+                                entity.title = task.title;
+                                entity.description = task.description;
+                              })
                             },
                           ),
                         ),
@@ -61,24 +63,25 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   );
                 },
-              );
-            }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => AddEditPage(onAddEntity: (entity) {}),
+              ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                print('${state.tasks}');
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => AddEditPage(onAddEntity: (entity) {}),
+                  ),
+                );
+              },
+              child: const Icon(Icons.add, color: Colors.white),
             ),
           );
-        },
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
+        }
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
     );
   }
 }
