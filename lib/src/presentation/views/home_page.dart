@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/utils/constants.dart';
-import '../../data/models/task.dart';
 import '../bloc/homebloc_dart_bloc.dart';
 import 'add_page.dart';
 
@@ -28,6 +27,7 @@ class _HomeViewState extends State<HomeView> {
         title: const Text(kMaterialAppTitle),
       ),
       body: Container(
+        margin: const EdgeInsets.all(10.0),
         child: BlocBuilder<HomeBloc, HomeblocState>(
           buildWhen: (previous, current) {
             if (previous != current) {
@@ -63,7 +63,9 @@ class _HomeViewState extends State<HomeView> {
                 },
               );
             }
-            return const CircularProgressIndicator();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           },
         ),
       ),
@@ -75,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           );
         },
-        child: const Icon(Icons.add, color: Colors.black),
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }
