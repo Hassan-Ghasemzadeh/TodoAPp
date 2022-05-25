@@ -7,7 +7,7 @@ import 'src/presentation/views/home_page.dart';
 void main() {
   setUp();
   BlocOverrides.runZoned(
-    () => runApp(const AppView()),
+    () => runApp(const AppPage()),
     blocObserver: AppBlocObserver(),
   );
 }
@@ -26,6 +26,18 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
+class AppPage extends StatelessWidget {
+  const AppPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => HomeBloc(),
+      child: AppView(),
+    );
+  }
+}
+
 class AppView extends StatelessWidget {
   const AppView({Key? key}) : super(key: key);
 
@@ -34,22 +46,10 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeBloc, HomeblocState>(
       builder: (_, state) {
-        return const MaterialApp(
-          home: AppPage(),
+        return MaterialApp(
+          home: HomeView(),
         );
       },
-    );
-  }
-}
-
-class AppPage extends StatelessWidget {
-  const AppPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HomeBloc(),
-      child: HomeView(),
     );
   }
 }
