@@ -1,6 +1,6 @@
 import 'package:hemend/object_controllers/data_snap_handler/data_snap_handler.dart';
 
-import '../../core/utils/usecase/empty_usecase.dart';
+import '../../core/utils/usecase/usecase_with_no_param.dart';
 import '../../data/models/person.dart';
 import '../repositories/base_person_impl.dart';
 
