@@ -1,13 +1,15 @@
 import 'package:hemend/object_controllers/data_snap_handler/data_snap_handler.dart';
 
+import '../../core/utils/usecase/empty_usecase.dart';
 import '../../data/models/person.dart';
 import '../repositories/base_person_impl.dart';
 
-class GetAllPersonUsecase {
+class GetAllPersonUsecase extends UseCase<List<Person>> {
   final PersonRepositoryImpl model;
 
   GetAllPersonUsecase(this.model);
 
+  @override
   Future<DataSnapHandler<List<Person>>> invoke() async {
     try {
       final result = await model.getAllPersons();
