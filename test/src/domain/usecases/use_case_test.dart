@@ -2,15 +2,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hemend/object_controllers/data_snap_handler/data_snap_handler.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:todoappflutter/src/data/models/person.dart';
-import 'package:todoappflutter/src/domain/repositories/base_person_impl.dart';
-import 'package:todoappflutter/src/domain/usecases/add_person_usecase.dart';
-import 'package:todoappflutter/src/domain/usecases/get_all_person_usecase.dart';
-import 'package:todoappflutter/src/domain/usecases/remove_person_usecase.dart';
-import 'package:todoappflutter/src/domain/usecases/update_person_usecase.dart';
+import 'package:todoappflutter/src/data/models/task.dart';
+import 'package:todoappflutter/src/domain/repositories/base_task_impl.dart';
+import 'package:todoappflutter/src/domain/usecases/add_task_usecase.dart';
+import 'package:todoappflutter/src/domain/usecases/get_all_task_usecase.dart';
+import 'package:todoappflutter/src/domain/usecases/remove_task_usecase.dart';
+import 'package:todoappflutter/src/domain/usecases/update_task_usecase.dart';
 import 'use_case_test.mocks.dart';
 
-@GenerateMocks([PersonRepositoryImpl])
+@GenerateMocks([TaskRepositoryImpl])
 void main() {
   group('use case test', () {
     final repo = MockPersonRepositoryImpl();
@@ -34,23 +34,23 @@ void main() {
     }); //end of set up
 //------------------------------------------------------
     test('add person test', () async {
-      final insert = AddPersonUseCase(repo);
+      final insert = AddTaskUseCase(repo);
 
-      final person = Person.unique();
+      final task = Task.unique();
 
-      final add = await insert.invoke(person);
+      final add = await insert.invoke(task);
 
       expect(add.status, SnapStatus.done);
 
-      verify(repo.insert(person));
+      verify(repo.insert(task));
     });
 
     //----------------------------------------------------
 
     test('remove person test', () async {
-      final delete = RemovePersonUseCases(repo);
+      final delete = RemoveTaskUseCases(repo);
 
-      final person = Person.unique();
+      final person = Task.unique();
 
       final remove = await delete.invoke(person);
 
@@ -60,9 +60,9 @@ void main() {
     });
     //------------------------------------------------------
     test('upadate person test', () async {
-      final updateUsecase = UpdatePersonUseCases(repo);
+      final updateUsecase = UpdateTaskUseCases(repo);
 
-      final person = Person.unique();
+      final person = Task.unique();
 
       final update = await updateUsecase.invoke(person);
 

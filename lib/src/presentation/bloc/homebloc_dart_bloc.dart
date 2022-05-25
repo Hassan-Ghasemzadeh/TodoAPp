@@ -2,27 +2,27 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hemend/debug/developer_tools.dart';
 
-import '../../data/models/person.dart';
-import '../../domain/repositories/base_person_impl.dart';
-import '../../domain/usecases/add_person_usecase.dart';
-import '../../domain/usecases/get_all_person_usecase.dart';
-import '../../domain/usecases/remove_person_usecase.dart';
-import '../../domain/usecases/update_person_usecase.dart';
+import '../../data/models/task.dart';
+import '../../domain/repositories/base_task_impl.dart';
+import '../../domain/usecases/add_task_usecase.dart';
+import '../../domain/usecases/get_all_task_usecase.dart';
+import '../../domain/usecases/remove_task_usecase.dart';
+import '../../domain/usecases/update_task_usecase.dart';
 import '../../injector.dart';
 
 part 'homebloc_dart_event.dart';
 part 'homebloc_dart_state.dart';
 
 class HomeBloc extends Bloc<HomeblocEvent, HomeblocState> {
-  final PersonRepositoryImpl repo = injector<PersonRepositoryImpl>();
+  final TaskRepositoryImpl repo = injector<TaskRepositoryImpl>();
   // update usecase
-  UpdatePersonUseCases get update => UpdatePersonUseCases(repo);
+  UpdateTaskUseCases get update => UpdateTaskUseCases(repo);
 
 // remove usecase
-  RemovePersonUseCases get remove => RemovePersonUseCases(repo);
+  RemoveTaskUseCases get remove => RemoveTaskUseCases(repo);
 
 // insert usecase
-  AddPersonUseCase get insert => AddPersonUseCase(repo);
+  AddTaskUseCase get insert => AddTaskUseCase(repo);
 
   GetAllPersonUsecase get getAllPerson => GetAllPersonUsecase(repo);
 

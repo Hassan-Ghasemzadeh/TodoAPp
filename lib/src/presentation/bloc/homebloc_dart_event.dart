@@ -6,7 +6,7 @@ abstract class HomeblocEvent extends Equatable {
 
 //------------------------------------------------------------------
 class UpdatePerson extends HomeblocEvent {
-  final Person person;
+  final Task person;
   const UpdatePerson({required this.person});
   @override
   List<Object> get props => [person];
@@ -14,7 +14,7 @@ class UpdatePerson extends HomeblocEvent {
 
 //------------------------------------------------------------------
 class RemovePerson extends HomeblocEvent {
-  final Person person;
+  final Task person;
 
   const RemovePerson({required this.person});
   @override
@@ -23,7 +23,7 @@ class RemovePerson extends HomeblocEvent {
 
 //------------------------------------------------------------------
 class InsertPerson extends HomeblocEvent {
-  final Person person;
+  final Task person;
   const InsertPerson({required this.person});
   @override
   List<Object> get props => [person];

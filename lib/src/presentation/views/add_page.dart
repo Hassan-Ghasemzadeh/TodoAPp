@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../domain/entities/person_entities.dart';
+import '../../domain/entities/task_entities.dart';
 
 class AddEditPage extends StatelessWidget {
   const AddEditPage({
@@ -8,13 +8,13 @@ class AddEditPage extends StatelessWidget {
     this.personEntity,
     required this.onAddEntity,
   }) : super(key: key);
-  final PersonEntity? personEntity;
-  final void Function(PersonEntity) onAddEntity;
+  final TaskEntity? personEntity;
+  final void Function(TaskEntity) onAddEntity;
   @override
   Widget build(BuildContext context) {
     return Material(
       child: AddEditView(
-        entity: personEntity ?? PersonEntity(age: 0, last: '', name: ''),
+        entity: personEntity ?? TaskEntity(description: '', title: ''),
         onAddEntity: onAddEntity,
       ),
     );
@@ -22,9 +22,9 @@ class AddEditPage extends StatelessWidget {
 }
 
 class AddEditView extends StatefulWidget {
-  final PersonEntity entity;
+  final TaskEntity entity;
 
-  final void Function(PersonEntity) onAddEntity;
+  final void Function(TaskEntity) onAddEntity;
 
   const AddEditView(
       {super.key, required this.entity, required this.onAddEntity});
@@ -39,27 +39,20 @@ class _AddEditViewState extends State<AddEditView> {
   void initState() {
     super.initState();
     controllers = {
-      'name': InputFieldPrams(
-        TextEditingController(text: widget.entity.name)
+      'title': InputFieldPrams(
+        TextEditingController(text: widget.entity.title)
           ..addListener(() {
-            widget.entity.name = controllers['name']!.controller.text;
+            widget.entity.title = controllers['title']!.controller.text;
           }),
         TextInputType.name,
       ),
-      'last name': InputFieldPrams(
-        TextEditingController(text: widget.entity.last)
+      'description': InputFieldPrams(
+        TextEditingController(text: widget.entity.description)
           ..addListener(() {
-            widget.entity.last = controllers['last name']!.controller.text;
+            widget.entity.description =
+                controllers['description']!.controller.text;
           }),
         TextInputType.name,
-      ),
-      'age': InputFieldPrams(
-        TextEditingController(text: widget.entity.age.toString())
-          ..addListener(() {
-            widget.entity.age =
-                int.tryParse(controllers['age']!.controller.text) ?? 0;
-          }),
-        TextInputType.number,
       ),
     };
   }
@@ -99,7 +92,7 @@ class _AddEditViewState extends State<AddEditView> {
                 );
               },
             ),
-
+            Container(height: 10),
             //a row of two button
             Row(
               children: [
@@ -116,6 +109,7 @@ class _AddEditViewState extends State<AddEditView> {
                     ),
                   ),
                 ),
+                Container(width: 10),
                 //save btn
                 Expanded(
                   child: ElevatedButton(

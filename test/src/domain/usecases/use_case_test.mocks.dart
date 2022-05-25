@@ -5,10 +5,9 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:todoappflutter/src/data/models/person.dart' as _i5;
-import 'package:todoappflutter/src/domain/entities/person_datasource.dart'
-    as _i2;
-import 'package:todoappflutter/src/domain/repositories/base_person_impl.dart'
+import 'package:todoappflutter/src/data/models/task.dart' as _i5;
+import 'package:todoappflutter/src/domain/entities/task_datasource.dart' as _i2;
+import 'package:todoappflutter/src/domain/repositories/base_task_impl.dart'
     as _i3;
 
 // ignore_for_file: type=lint
@@ -21,38 +20,36 @@ import 'package:todoappflutter/src/domain/repositories/base_person_impl.dart'
 // ignore_for_file: unnecessary_parenthesis
 // ignore_for_file: camel_case_types
 
-class _FakePersonDataSource_0 extends _i1.Fake implements _i2.PersonDataSource {
-}
+class _FakePersonDataSource_0 extends _i1.Fake implements _i2.TaskDataSource {}
 
 /// A class which mocks [PersonRepositoryImpl].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockPersonRepositoryImpl extends _i1.Mock
-    implements _i3.PersonRepositoryImpl {
+    implements _i3.TaskRepositoryImpl {
   MockPersonRepositoryImpl() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i2.PersonDataSource get model =>
-      (super.noSuchMethod(Invocation.getter(#model),
-          returnValue: _FakePersonDataSource_0()) as _i2.PersonDataSource);
+  _i2.TaskDataSource get model => (super.noSuchMethod(Invocation.getter(#model),
+      returnValue: _FakePersonDataSource_0()) as _i2.TaskDataSource);
   @override
-  _i4.Future<bool> delete(_i5.Person? person) =>
+  _i4.Future<bool> delete(_i5.Task? person) =>
       (super.noSuchMethod(Invocation.method(#delete, [person]),
           returnValue: Future<bool>.value(false)) as _i4.Future<bool>);
   @override
-  _i4.Future<List<_i5.Person>> getAllPersons() =>
+  _i4.Future<List<_i5.Task>> getAllPersons() =>
       (super.noSuchMethod(Invocation.method(#getAllPersons, []),
-              returnValue: Future<List<_i5.Person>>.value(<_i5.Person>[]))
-          as _i4.Future<List<_i5.Person>>);
+              returnValue: Future<List<_i5.Task>>.value(<_i5.Task>[]))
+          as _i4.Future<List<_i5.Task>>);
   @override
-  _i4.Future<void> insert(_i5.Person? person) =>
+  _i4.Future<void> insert(_i5.Task? person) =>
       (super.noSuchMethod(Invocation.method(#insert, [person]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
   @override
-  _i4.Future<void> update(_i5.Person? person) =>
+  _i4.Future<void> update(_i5.Task? person) =>
       (super.noSuchMethod(Invocation.method(#update, [person]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i4.Future<void>);
