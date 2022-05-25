@@ -33,7 +33,7 @@ class AppPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => HomeBloc(),
-      child: AppView(),
+      child: const AppView(),
     );
   }
 }

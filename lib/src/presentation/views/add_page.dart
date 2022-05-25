@@ -12,9 +12,11 @@ class AddEditPage extends StatelessWidget {
   final void Function(PersonEntity) onAddEntity;
   @override
   Widget build(BuildContext context) {
-    return AddEditView(
-      entity: personEntity ?? PersonEntity(age: 0, last: '', name: ''),
-      onAddEntity: onAddEntity,
+    return Material(
+      child: AddEditView(
+        entity: personEntity ?? PersonEntity(age: 0, last: '', name: ''),
+        onAddEntity: onAddEntity,
+      ),
     );
   }
 }
@@ -79,16 +81,19 @@ class _AddEditViewState extends State<AddEditView> {
             //name text field
             ...controllers.entries.map(
               (e) {
-                return TextField(
-                  controller: e.value.controller,
-                  keyboardType: e.value.type,
-                  decoration: InputDecoration(
-                    hintText: 'Input your ${e.key} here',
-                    labelText: e.key,
-                    fillColor: Colors.white,
-                    border: const OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                return SizedBox(
+                  width: 200.0,
+                  child: TextField(
+                    controller: e.value.controller,
+                    keyboardType: e.value.type,
+                    decoration: InputDecoration(
+                      hintText: 'Input your ${e.key} here',
+                      labelText: e.key,
+                      fillColor: Colors.white,
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.all(Radius.circular(7.0)),
+                      ),
                     ),
                   ),
                 );

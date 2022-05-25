@@ -27,41 +27,51 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text(kMaterialAppTitle),
       ),
-      body: Container(child: BlocBuilder<HomeBloc, HomeblocState>(
-        builder: (context, state) {
-          List<Person>? persons;
-          if (state is AllPersonsState) {
-            persons = state.persons;
-          } else if (persons == null) {
-            return Container(child: const CircularProgressIndicator());
-          }
-          return ListView.builder(
-            itemCount: persons.length,
-            itemBuilder: (context, index) {
-              final person = persons![index];
-              return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => AddEditPage(
-                        onAddEntity: (entity) =>
-                            {entity.age = person.age, entity.name = person.name, entity.last = person.last},
-                      ),
+      body: Container(
+        child: BlocBuilder<HomeBloc, HomeblocState>(
+          buildWhen: (previous, current) {
+            if (previous != current) {
+              return true;
+            }
+            return false;
+          },
+          builder: (context, state) {
+            if (state is AllPersonsState) {
+              final persons = state.persons;
+              return ListView.builder(
+                itemCount: persons.length,
+                itemBuilder: (context, index) {
+                  final person = persons[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AddEditPage(
+                            onAddEntity: (entity) => {
+                              entity.age = person.age,
+                              entity.name = person.name,
+                              entity.last = person.last
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    child: ListTile(
+                      title: Text(person.name),
+                      subtitle: Text(person.last),
+                      isThreeLine: true,
+                      leading: Text('${person.age}'),
+                      contentPadding: const EdgeInsets.all(5.0),
                     ),
                   );
                 },
-                child: ListTile(
-                  title: Text(person.name),
-                  subtitle: Text(person.last),
-                  isThreeLine: true,
-                  leading: Text('${person.age}'),
-                  contentPadding: const EdgeInsets.all(5.0),
-                ),
               );
-            },
-          );
-        },
-      )),
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
