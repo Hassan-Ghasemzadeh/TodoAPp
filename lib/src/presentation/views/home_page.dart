@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/utils/constants.dart';
-import '../../data/models/person.dart';
 import '../bloc/homebloc_dart_bloc.dart';
 import 'add_page.dart';
 

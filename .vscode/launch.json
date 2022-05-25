@@ -5,17 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-chrome",
+            "name": "Launch Chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "type": "chrome",
             "url": "http://localhost:8080",
             "webRoot": "${workspaceFolder}"
         },
         {
-            "name": "Flutter (lib\\main.dart)",
-            "type": "dart",
+            "type": "android",
             "request": "launch",
-            "program": "lib\\main.dart"
+            "name": "Android Launch",
+            "appSrcRoot": "${workspaceRoot}/app/src/main",
+            "apkFile": "${workspaceRoot}/app/build/outputs/apk/debug/app-debug.apk",
+            "adbPort": 5037
         }
+        
     ]
 }
