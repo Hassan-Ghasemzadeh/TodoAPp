@@ -27,26 +27,25 @@ class _HomeViewState extends State<HomeView> {
       appBar: AppBar(
         title: const Text(kMaterialAppTitle),
       ),
-      body: Expanded(child: BlocBuilder<HomeBloc, HomeblocState>(
+      body: Container(child: BlocBuilder<HomeBloc, HomeblocState>(
         builder: (context, state) {
-          late List<Person> persons;
+          List<Person>? persons;
           if (state is AllPersonsState) {
             persons = state.persons;
+          } else {
+            return Container(child: CircularProgressIndicator());
           }
           return ListView.builder(
             itemCount: persons.length,
             itemBuilder: (context, index) {
-              final person = persons[index];
+              final person = persons![index];
               return GestureDetector(
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => AddEditPage(
-                        onAddEntity: (entity) => {
-                          entity.age = person.age,
-                          entity.name = person.name,
-                          entity.last = person.last
-                        },
+                        onAddEntity: (entity) =>
+                            {entity.age = person.age, entity.name = person.name, entity.last = person.last},
                       ),
                     ),
                   );
