@@ -32,8 +32,8 @@ class _HomeViewState extends State<HomeView> {
           List<Person>? persons;
           if (state is AllPersonsState) {
             persons = state.persons;
-          } else {
-            return Container(child: CircularProgressIndicator());
+          } else if (persons == null) {
+            return Container(child: const CircularProgressIndicator());
           }
           return ListView.builder(
             itemCount: persons.length,
