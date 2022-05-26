@@ -13,7 +13,7 @@ import '../../injector.dart';
 part 'homebloc_dart_event.dart';
 part 'homebloc_dart_state.dart';
 
-class HomeBloc extends Bloc<HomeblocEvent, HomeblocState> {
+class HomeBloc extends Bloc<HomeblocEvent, AllPersonsState> {
   final TaskRepositoryImpl repo = injector<TaskRepositoryImpl>();
   // update usecase
   UpdateTaskUseCases get update => UpdateTaskUseCases(repo);

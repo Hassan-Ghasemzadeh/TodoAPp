@@ -76,6 +76,8 @@ class _AddEditViewState extends State<AddEditView> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        width: 500,
+        height: 200,
         child: Column(
           children: [
             //name text field

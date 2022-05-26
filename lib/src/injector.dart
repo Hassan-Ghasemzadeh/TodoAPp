@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:todoappflutter/src/domain/entities/task_datasource.dart';
-import 'package:todoappflutter/src/domain/repositories/base_task_impl.dart';
+import 'domain/entities/task_datasource.dart';
+import 'domain/repositories/base_task_impl.dart';
 
 GetIt get injector => GetIt.instance;
 
